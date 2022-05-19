@@ -9,4 +9,4 @@ class class_name(models.Model):
 
     field_name1 = fields.field_type(string='string_name')
     field_name2 = fields.field_type('model_name', string='string_name')
-    field_name2 = fields.field_type('comodel_name', 'inverse_name', string='string_name')
+    field_name3 = fields.field_type('comodel_name', 'inverse_name', string='string_name')

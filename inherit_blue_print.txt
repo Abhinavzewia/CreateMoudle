@@ -1,0 +1,5 @@
+
+class class_name(models.Model):
+    _inherit = "model_name_comes_here"
+
+    field_name = fields.field_type('model_name', string='string_name')

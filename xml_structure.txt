@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="view_id_list_id">
+            <field name="name">view_name list</field>
+            <field name="model">model_come_here</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="field_names"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_id_form_id" model="ir.ui.view">
+            <field name="name">view_name form</field>
+            <field name="model">model_come_here</field>
+            <field name="arch" type="xml">
+                <form string="form_string_name">
+                    <group>
+                    <group>
+                        <field name="group_1_fields" />
+                    </group>
+                        <group>
+                        <field name="group_2_fields"/>
+                    </group>
+                    </group>
+
+                    <group>
+                        <field name="many2many_fields" widget="many2many_tags"/>
+                    </group>
+
+                    <notebook>
+
+                        <page string="page_string">
+                            <field name="one2many_fields"/>
+                        </page>
+
+                    </notebook>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="action_id_action_window">
+            <field name="name">action_name window</field>
+            <field name="res_model">model_come_here</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    </data>
+</odoo>

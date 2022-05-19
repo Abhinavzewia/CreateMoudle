@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <menuitem name="Main_menu_name" id="main_menu_id_menu_root"/>
+
+        <menuitem name="submenu_name" id="submenu_id" parent="main_menu_id_menu_root" action="menu_action"/>
+
+    </data>
+</odoo>
