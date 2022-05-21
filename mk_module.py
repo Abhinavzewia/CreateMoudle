@@ -2,11 +2,14 @@ SEL = 'Selection'
 M2O = 'Many2one'
 O2M = 'One2many'
 M2M = 'Many2many'
-MAIN_MENU_ID = ''
+MAIN_MENU_ID = []
+SUB_MENUS = []
 
 def basic_module_details():
     basic_module_details.module_name = module_name = input("Enter the module name: ")
     dependencies = input("Enter the dependencies: ")
+    return module_name
+
 
 
 def get_location():
@@ -115,11 +118,12 @@ def collecting_details():
 
 class ModuleCreation:
 
-    def __init__(self, model_name, model_details):
+    def __init__(self, model_name, model_details, module_name):
         self.main_py = None
         self.location = None
         self.model_name = model_name
         self.model_details = model_details
+        self.module_name = module_name
         self.basic_fields = ['Boolean', 'Char', 'Integer', 'Float', 'Text', 'Date']
         self.field_list = []
         self.inherited_models = []
@@ -142,6 +146,7 @@ class ModuleCreation:
                                                                                              f_name.split('_')])).
                                        replace('field_type', field) for
                                        f_name in self.model_details[field]])
+        self.fields = {field: type for type in self.model_details for field in self.model_details[type]}
 
     def creating_many2one_fields(self):
         if M2O in self.model_details:
@@ -228,15 +233,18 @@ class ModuleCreation:
         self.main_py.extend(self.field_list)
         self.inherited_models_import.extend(self.inherited_models)
 
+
     def get_xml_field_models(self):
         xml_blueprint = open('xml_structure.txt', 'r')
         xml_blueprint.seek(0)
-        xml_blueprint_data = xml_blueprint.readlines()
-        self.tree_field_model = xml_blueprint_data[10]
-        self.form_group1_field = xml_blueprint_data[22]
-        self.form_group2_field = xml_blueprint_data[25]
-        self.form_o2m_field = xml_blueprint_data[36]
-        self.form_m2m_field = xml_blueprint_data[30]
+        self.xml_blueprint_data = xml_blueprint.readlines()
+        xml_blueprint.seek(0)
+        self.save_xml_blueprint_data = xml_blueprint.read()
+        self.tree_field_model = self.xml_blueprint_data[10]
+        self.form_group1_field = self.xml_blueprint_data[22]
+        self.form_group2_field = self.xml_blueprint_data[25]
+        self.form_o2m_field = self.xml_blueprint_data[36]
+        self.form_m2m_field = self.xml_blueprint_data[30]
 
     def create_list_view(self):
         self.tree_fields = [field  for type in self.field_list for field in type if self.field_list[type] in
@@ -247,9 +255,9 @@ class ModuleCreation:
     def create_form_view(self):
         self.form_fields1 = [field  for type in self.field_list for field in type if self.field_list[type] not in
                        [O2M, M2M]]
-        self.form_o2m_fields = [field  for type in self.field_list for field in type if self.field_list[type] in
+        self.o2m_fields = [field  for type in self.field_list for field in type if self.field_list[type] in
                        [O2M]]
-        self.form_m2m_fields = [field  for type in self.field_list for field in type if self.field_list[type] in
+        self.m2m_fields = [field  for type in self.field_list for field in type if self.field_list[type] in
                        [M2M]]
         if self.form_fields1:
             for i, fld in enumerate(self.form_fields1):
@@ -257,10 +265,49 @@ class ModuleCreation:
                     self.xml_form_group1_fields.extend([self.form_group1_field.replace('group_1_fields', fld)])
                 else:
                     self.xml_form_group2_fields.extend([self.form_group2_field.replace('group_2_fields', fld)])
-        if self.form_o2m_fields:
-            self.xml_form_o2m_fields.extend([self.form_o2m_field.replace('one2many_fields', fld) for fld in self.form_o2m_fields])
-        if self.form_m2m_fields:
-            self.xml_form_m2m_fields.extend([self.form_m2m_field.replace('many2many_fields', fld) for fld in self.form_m2m_fields])
+        if self.o2m_fields:
+            self.xml_form_o2m_fields.extend([self.form_o2m_field.replace('one2many_fields', fld) for fld in self.o2m_fields])
+        if self.m2m_fields:
+            self.xml_form_m2m_fields.extend([self.form_m2m_field.replace('many2many_fields', fld) for fld in self.m2m_fields])
+
+    def merging_xml_views(self):
+        xml_data = self.save_xml_blueprint_data.replace("view_id", "_".join(self.model_name.split('.'))).replace(
+            "view_name", " ".join(list(map(lambda x: x.capitalize(), self.model_name.split('.'))))).replace(
+            "model_come_here", self.model_name).replace(self.tree_field_model, self.xml_tree_fields).replace(
+            "form_string_name", " ".join(list(map(lambda x: x.capitalize(), self.model_name.split('.'))))).replace(
+            self.form_group1_field, self.xml_form_group1_fields).replace(
+            self.form_group2_field, self.xml_form_group2_fields).replace(
+            "action_name", " ".join(list(map(lambda x: x.capitalize(), self.model_name.split('.'))))).replace('action_id',
+            "_".join(self.model_name.split('.')))
+        if self.o2m_fields:
+            xml_data = xml_data.replace(self.form_o2m_field, self.xml_form_o2m_fields)
+        else:
+            xml_data = xml_data.replace("".join(self.xml_blueprint_data[28:33]), "")
+        if self.m2m_fields:
+            xml_data = xml_data.replace(self.form_m2m_field, self.xml_form_m2m_fields)
+        else:
+            xml_data = xml_data.replace("".join(self.xml_blueprint_data[33:40]), "")
+        self.xml_data = xml_data
+
+    def get_xml_menu_models(self):
+        xml_menu_blueprint = open('xml_menu_structure.txt', 'r')
+        xml_menu_blueprint.seek(0)
+        self.xml_menu_blueprint_data = xml_menu_blueprint.readlines()
+        xml_menu_blueprint.seek(0)
+        self.save_xml_menu_blueprint_data = xml_menu_blueprint.read()
+
+
+    def creating_menu(self):
+        if not MAIN_MENU_ID:
+            MAIN_MENU_ID.extend([self.xml_menu_blueprint_data[4].replace('Main_menu_name', self.module_name).replace(
+                'main_menu_id', self.module_name)])
+        SUB_MENUS.extend([self.xml_menu_blueprint_data[6].replace('submenu_name', " ".join(
+            list(map(lambda x: x.capitalize(), self.model_name.split('.'))))).replace(
+                'submenu_id', "_".join(self.model_name.split('.'))).replace('main_menu_id', self.module_name).replace(
+            'menu_action', "_".join(self.model_name.split('.')) + "_action_window")])
+
+
+
 
 
 
@@ -271,7 +318,7 @@ class ModuleCreation:
 dit = {'model.modle': {'Boolean': ['Boolfield1'], 'Char': ['char_field1'], 'Selection': {'sel_field1': ['opt1', 'opt2']}, 'Many2one': {'a': 'test.model'}, 'One2many': {'O2M': 'o.m'}}}
 
 for key, value in dit.items():
-    obj = ModuleCreation(key, value)
+    obj = ModuleCreation(key, value, 'test_module')
     obj.create_model()
     obj.creating_basic_fields()
     obj.creating_many2one_fields()
@@ -279,6 +326,11 @@ for key, value in dit.items():
     obj.creating_one2many_fields()
     obj.creating_many2many_fields()
     obj.create_files()
+    obj.get_xml_field_models()
+    obj.create_list_view()
+    obj.create_form_view()
+    obj.merging_xml_views()
     # print(obj.field_list)
     print(obj.inherited_models_import)
     print(obj.main_py)
+    print(obj.xml_data)
