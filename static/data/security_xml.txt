@@ -1,0 +1,7 @@
+<odoo>
+    <record id="module_name_here.group_name_here" model="res.groups">
+		<field name="name">module_name_cap Full Permission</field>
+		<field name="users" eval="[(4, ref('base.user_root'))]"/>
+	</record>
+
+</odoo>

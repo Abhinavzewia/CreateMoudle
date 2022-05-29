@@ -1,74 +1,106 @@
+import os
+import module_create
+import shutil
+
+DATATYPE = {'Char': 'char_name', 'Selection': 'selection_name', 'Many2one': 'm2o_name', 'Date': 'date_name',
+            'Boolean': 'bool_name', 'Integer': 'int_name', 'Text': 'text_name', 'Float': 'float_name',
+            'One2many': 'o2m_name', 'Many2many': 'm2m_name'}
 SEL = 'Selection'
 M2O = 'Many2one'
 O2M = 'One2many'
 M2M = 'Many2many'
-MAIN_MENU_ID = []
-SUB_MENUS = []
+
 
 def basic_module_details():
-    basic_module_details.module_name = module_name = input("Enter the module name: ")
-    dependencies = input("Enter the dependencies: ")
-    return module_name
-
+    module_name = input("\033[1;37m \nEnter the module name: ").lower().strip()
+    if module_name.find("_") == -1:
+        module_name = module_name.replace(" ", "_")
+    basic_module_details.module_name = module_name
+    dependencies = input("\033[1;37m \nEnter the dependencies: ")
+    return module_name, dependencies
 
 
 def get_location():
-    'location validation needed'
-    location = input("Enter The Location In Which The Module  To Be Created: ")
-    return location
+    while True:
+        location = input("\033[1;37m \nEnter The Location In Which The Module  To Be Created: ")
+        if os.path.exists(location):
+            return location
+        print('\033[1;31m \nGiven Path Does Not Exist \nTry Again!')
 
 
 def collecting_model_name():
-    model = input("enter the MODEL Name: ")
-    return model
+    while True:
+        model = input("\033[1;37m \nEnter the MODEL Name: ").lower().strip()
+        if model.find(".") == -1:
+            if model.find("_") != -1:
+                return model.replace("_", ".")
+            if model.find(" ") != -1:
+                return model.replace(" ", ".")
+            print("\031[1;31m \n\nInvalid Entry\nTry Again")
+            continue
+        return model
 
 
 def get_no_of_model():
     while True:
         try:
-            no_of_models = int(input("Enter the Number of models in %s module: " % basic_module_details.module_name))
+            no_of_models = int(
+                input("\033[1;37m \nEnter the Number of models in %s module: " % basic_module_details.module_name))
         except:
-            print('Invalid Entry')
+            print('\033[1;31m \nInvalid Entry\nTry Again')
             continue
-        break
-    return no_of_models
+        return no_of_models
 
 
 def get_field_count(name, model):
     while True:
         try:
-            cnt = int(input("Enter the no:of %s fields in %s model: " % (name, model)))
+            cnt = int(input("\033[1;37m \nEnter the no:of %s fields in %s model: " % (name, model)))
         except:
-            print('Invalid Entry')
+            print('\033[1;31m \nInvalid Entry\nTry Again')
             continue
-        break
-    return cnt
+        return cnt
 
 
 def get_field_name(field, no, model):
-    f_name = input("Enter the name of %s field %s in %s model: " % (field, no, model))
-    return f_name
+    while True:
+        f_name = input(
+            "\033[1;37m \nEnter the name of %s field %s in %s model: " % (field, no + 1, model)).lower().strip()
+        if f_name.find(" ") != -1:
+            print("\031[1;31m \n\nInvalid Entry\nTry Again")
+            continue
+        if f_name.find(".") != -1:
+            print("\031[1;31m \n\nInvalid Entry\nTry Again")
+            continue
+        return f_name
 
 
 def opt_cnt(sel_name):
     while True:
         try:
-            opt_cnt = int(input("Enter the no:of Options for %s : " % sel_name))
+            opt_cnt = int(input("\033[1;37m \nEnter the no:of Options for %s : " % sel_name))
         except:
-            print('Invalid Entry')
+            print('\033[1;31m \nInvalid Entry\nTry Again')
             continue
-        break
-    return opt_cnt
+        return opt_cnt
 
 
 def get_options(sel_name, opt_cnt):
-    opt_name = input("Enter the %s Option for %s Selection Field : " % (sel_name.upper(), opt_cnt))
+    opt_name = input("\033[1;37m \nEnter the %s Option for %s Selection Field : " % (sel_name.upper(), opt_cnt + 1))
     return opt_name
 
 
 def get_comodel_name(field_name):
-    comodel = input("Enter the comodel name of %s : " % field_name.upper())
-    return comodel
+    while True:
+        comodel = input("\033[1;37m \nEnter the comodel name %s : " % field_name.upper()).lower().strip()
+        if comodel.find(".") == -1:
+            if comodel.find("_") != -1:
+                return comodel.replace("_", ".")
+            if comodel.find(" ") != -1:
+                return comodel.replace(" ", ".")
+            print("\033[1;31m \nInvalid Entry\nTry Again")
+            continue
+        return comodel
 
 
 def get_basic_fields(det, field_name, model):
@@ -116,221 +148,198 @@ def collecting_details():
     return main_details
 
 
-class ModuleCreation:
-
-    def __init__(self, model_name, model_details, module_name):
-        self.main_py = None
-        self.location = None
-        self.model_name = model_name
-        self.model_details = model_details
-        self.module_name = module_name
-        self.basic_fields = ['Boolean', 'Char', 'Integer', 'Float', 'Text', 'Date']
-        self.field_list = []
-        self.inherited_models = []
-        self.xml_tree_fields = []
-        self.xml_form_group1_fields = []
-        self.xml_form_group2_fields = []
-        self.xml_form_o2m_fields = []
-        self.xml_form_m2m_fields = []
-
-    def creating_directories(self):
-        self.location = get_location()
-        self.main_py_location = ""
-
-    def creating_basic_fields(self):
-        for field in self.basic_fields:
-            if field in self.model_details:
-                self.field_list.extend([self.basic_field_model.replace('field_name1',
-                                                           f_name.lower()).replace('string_name',
-                                                                                   " ".join([na.capitalize() for na in
-                                                                                             f_name.split('_')])).
-                                       replace('field_type', field) for
-                                       f_name in self.model_details[field]])
-        self.fields = {field: type for type in self.model_details for field in self.model_details[type]}
-
-    def creating_many2one_fields(self):
-        if M2O in self.model_details:
-            self.field_list.extend([self.many2one_field_model.replace('field_name2',
-                                                                  f_name.lower()).replace('string_name',
-                                                                                          " ".join(
-                                                                                              [na.capitalize() for na in
-                                                                                               f_name.split('_')])).
-                                   replace('model_name', self.model_details[M2O][f_name]).replace('field_type',
-                                                                                                      M2O)for
-                                   f_name in self.model_details[M2O]])
-
-    def creating_one2many_fields(self):
-        def create_inverse_field(f_name):
-            inverse_field_details = self.inverse_model.replace('model_name_comes_here', get_comodel(f_name)).replace('class_name', "".join(
-                list(map(lambda x: x.capitalize(), get_comodel(f_name).split('.'))))).replace('field_name',
-                                                                                              inverse_name).\
-                replace('model_name', self.model_name).replace('field_type', M2O).replace('string_name',
-                                                                                          " ".join(
-                                                                                              [na.capitalize() for na in
-                                                                                               self.model_name.split('.')]))
-            self.inherited_models.append(inverse_field_details)
-        if O2M in self.model_details:
-            inverse_name = self.model_name.replace(".", "_") + "_id"
-            def get_comodel(f_name):
-                return self.model_details[O2M][f_name]
-            self.field_list.extend([self.one2many_field_model.replace('field_name3',
-                                                                  f_name.lower()).replace('string_name',
-                                                                                          " ".join(
-                                                                                              [na.capitalize() for na in
-                                                                                               f_name.split('_')])).
-                                   replace('comodel_name', get_comodel(f_name)).replace('inverse_name',
-                                   inverse_name).replace('field_type', O2M) for
-                                   f_name in self.model_details[O2M]])
-            [create_inverse_field(f) for f in self.model_details[O2M]]
-
-    def creating_many2many_fields(self):
-        if M2M in self.model_details:
-            self.field_list.extend([self.many2one_field_model.replace('field_name2',
-                                                                     f_name.lower()).replace('string_name',
-                                                                                             " ".join(
-                                                                                                 [na.capitalize() for na
-                                                                                                  in
-                                                                                                  f_name.split('_')])).
-                                   replace('model_name', self.model_details['field'][f_name]).replace('field_type',
-                                                                                                      M2M) for
-                                   f_name in self.model_details['field']])
-
-    def create_selection_fields(self):
-        def get_options(lis):
-            return str([(n, n) for n in lis])
-        if SEL in self.model_details:
-            self.field_list.extend([self.basic_field_model.replace('field_name1',
-                                                           f_name.lower()).replace("string_name'",
-                                                                                   " ".join([na.capitalize() for na in
-                                                                                             f_name.split('_')]) + "', " +
-                                                                                   get_options(self.model_details[SEL][f_name])).
-                                       replace('field_type', SEL) for
-                                       f_name in self.model_details[SEL]])
-
-    def create_model(self):
-        py_blueprint = open('blue_print.txt', 'r')
-        py_blueprint.seek(0)
-        py_blueprint_data = py_blueprint.readlines()
-        main_py = [n.replace('class_name',
-                             "".join(list(map(lambda x: x.capitalize(), self.model_name.split('.'))))).replace(
-            'model_name_comes_here', self.model_name).replace('model_description_here',
-                                                              " ".join(list(map(lambda x: x.capitalize(),
-                                                                                self.model_name.split('.')))))
-                   for n in py_blueprint_data[:9]]
-        inherit_py_blueprint = open('inherit_blue_print.txt', 'r')
-        inherit_py_blueprint.seek(0)
-        inherit_py_blueprint_data = inherit_py_blueprint.read()
-        py_blueprint.close()
-        inherit_py_blueprint.close()
-        self.inverse_model = inherit_py_blueprint_data
-        self.basic_field_model = py_blueprint_data[9]
-        self.many2one_field_model = py_blueprint_data[10]
-        self.one2many_field_model = py_blueprint_data[11]
-        self.inherited_models_import = [py_blueprint_data[2]]
-        self.main_py = main_py
-
-    def create_files(self):
-        self.main_py.extend(self.field_list)
-        self.inherited_models_import.extend(self.inherited_models)
+def get_file(file):
+    # path = os.getcwd()
+    return open(os.path.join('static/data', "%s" % file), 'r')
 
 
-    def get_xml_field_models(self):
-        xml_blueprint = open('xml_structure.txt', 'r')
-        xml_blueprint.seek(0)
-        self.xml_blueprint_data = xml_blueprint.readlines()
-        xml_blueprint.seek(0)
-        self.save_xml_blueprint_data = xml_blueprint.read()
-        self.tree_field_model = self.xml_blueprint_data[10]
-        self.form_group1_field = self.xml_blueprint_data[22]
-        self.form_group2_field = self.xml_blueprint_data[25]
-        self.form_o2m_field = self.xml_blueprint_data[36]
-        self.form_m2m_field = self.xml_blueprint_data[30]
-
-    def create_list_view(self):
-        self.tree_fields = [field  for type in self.field_list for field in type if self.field_list[type] in
-                       ['Char', SEL, 'Date', M2O, 'Integer']]
-        if self.tree_fields:
-            self.xml_tree_fields.extend([self.tree_field_model.replace('field_names', field) for field in self.tree_fields])
-
-    def create_form_view(self):
-        self.form_fields1 = [field  for type in self.field_list for field in type if self.field_list[type] not in
-                       [O2M, M2M]]
-        self.o2m_fields = [field  for type in self.field_list for field in type if self.field_list[type] in
-                       [O2M]]
-        self.m2m_fields = [field  for type in self.field_list for field in type if self.field_list[type] in
-                       [M2M]]
-        if self.form_fields1:
-            for i, fld in enumerate(self.form_fields1):
-                if i % 2:
-                    self.xml_form_group1_fields.extend([self.form_group1_field.replace('group_1_fields', fld)])
-                else:
-                    self.xml_form_group2_fields.extend([self.form_group2_field.replace('group_2_fields', fld)])
-        if self.o2m_fields:
-            self.xml_form_o2m_fields.extend([self.form_o2m_field.replace('one2many_fields', fld) for fld in self.o2m_fields])
-        if self.m2m_fields:
-            self.xml_form_m2m_fields.extend([self.form_m2m_field.replace('many2many_fields', fld) for fld in self.m2m_fields])
-
-    def merging_xml_views(self):
-        xml_data = self.save_xml_blueprint_data.replace("view_id", "_".join(self.model_name.split('.'))).replace(
-            "view_name", " ".join(list(map(lambda x: x.capitalize(), self.model_name.split('.'))))).replace(
-            "model_come_here", self.model_name).replace(self.tree_field_model, self.xml_tree_fields).replace(
-            "form_string_name", " ".join(list(map(lambda x: x.capitalize(), self.model_name.split('.'))))).replace(
-            self.form_group1_field, self.xml_form_group1_fields).replace(
-            self.form_group2_field, self.xml_form_group2_fields).replace(
-            "action_name", " ".join(list(map(lambda x: x.capitalize(), self.model_name.split('.'))))).replace('action_id',
-            "_".join(self.model_name.split('.')))
-        if self.o2m_fields:
-            xml_data = xml_data.replace(self.form_o2m_field, self.xml_form_o2m_fields)
-        else:
-            xml_data = xml_data.replace("".join(self.xml_blueprint_data[28:33]), "")
-        if self.m2m_fields:
-            xml_data = xml_data.replace(self.form_m2m_field, self.xml_form_m2m_fields)
-        else:
-            xml_data = xml_data.replace("".join(self.xml_blueprint_data[33:40]), "")
-        self.xml_data = xml_data
-
-    def get_xml_menu_models(self):
-        xml_menu_blueprint = open('xml_menu_structure.txt', 'r')
-        xml_menu_blueprint.seek(0)
-        self.xml_menu_blueprint_data = xml_menu_blueprint.readlines()
-        xml_menu_blueprint.seek(0)
-        self.save_xml_menu_blueprint_data = xml_menu_blueprint.read()
+def create_dir(module_path, dir_name):
+    os.makedirs(os.path.join(module_path, dir_name))
 
 
-    def creating_menu(self):
-        if not MAIN_MENU_ID:
-            MAIN_MENU_ID.extend([self.xml_menu_blueprint_data[4].replace('Main_menu_name', self.module_name).replace(
-                'main_menu_id', self.module_name)])
-        SUB_MENUS.extend([self.xml_menu_blueprint_data[6].replace('submenu_name', " ".join(
-            list(map(lambda x: x.capitalize(), self.model_name.split('.'))))).replace(
-                'submenu_id', "_".join(self.model_name.split('.'))).replace('main_menu_id', self.module_name).replace(
-            'menu_action', "_".join(self.model_name.split('.')) + "_action_window")])
+def creating_py_xml(py, xml, model_name, module_name, location):
+    module_path = os.path.join(location, module_name)
+    if not os.path.exists(os.path.join(module_path, 'models')):
+        create_dir(module_path, 'models')
+    if not os.path.exists(os.path.join(module_path, 'view')):
+        create_dir(module_path, 'view')
+    if not os.path.exists(os.path.join(module_path, 'security')):
+        create_dir(module_path, 'security')
+    model = "_".join(model_name.split("."))
+    py_file = open(os.path.join(module_path, 'models/%s.py' % model), "w")
+    py_file.write("".join(py))
+    xml_file = open(os.path.join(module_path, 'view/%s.xml' % model), "w")
+    xml_file.write("".join(xml))
+    xml_menu_file = open(os.path.join(module_path, 'view/menu.xml'), "w")
+    xml_menu_file.write("".join(xml))
+    py_file.close()
+    xml_file.close()
+    return model, module_path
 
 
+def create_init(file_lis, path):
+    py_file = open(os.path.join(path, 'models/__init__.py'), "w")
+    py_file.write("from . import inherited_file, " + ", ".join(file_lis))
+    py_file.close()
 
 
+def create_manifest(file_lis, path, module_name_cap, dependencies):
+    manifest_model_file = get_file('manifest.txt')
+    manifest_model_file.seek(0)
+    manifest_model = manifest_model_file.read()
+    manifest = manifest_model.replace('module_name_here', module_name_cap).replace(
+        'depends_file_name',
+        "".join([dep.strip() for dep in dependencies.split(",") if dep.strip() != 'base'])).replace(
+        'file_name', ",\n".join(["'view/%s.xml'" % n.strip() for n in file_lis])
+    )
+    manifest_file = open(os.path.join(path, '__manifest__.py'), "w")
+    manifest_file.write(manifest)
+    manifest_file.close()
+    print("\033[1;32m Creating Manifest... \n")
+    init = open(os.path.join(path, '__init__.py'), "w")
+    init.write("from . import models")
+    init.close()
 
 
+def create_inherit_file(path, inherit_list):
+    inherit_file = open(os.path.join(path, 'models/inherited_file.py'), "w")
+    inherit_file.write("".join(inherit_list))
+    inherit_file.close()
 
-# module_name = basic_module_details()
-# module_details = collecting_details()
-# print(module_details)
-dit = {'model.modle': {'Boolean': ['Boolfield1'], 'Char': ['char_field1'], 'Selection': {'sel_field1': ['opt1', 'opt2']}, 'Many2one': {'a': 'test.model'}, 'One2many': {'O2M': 'o.m'}}}
 
-for key, value in dit.items():
-    obj = ModuleCreation(key, value, 'test_module')
-    obj.create_model()
-    obj.creating_basic_fields()
-    obj.creating_many2one_fields()
-    obj.create_selection_fields()
-    obj.creating_one2many_fields()
-    obj.creating_many2many_fields()
-    obj.create_files()
-    obj.get_xml_field_models()
-    obj.create_list_view()
-    obj.create_form_view()
-    obj.merging_xml_views()
-    # print(obj.field_list)
-    print(obj.inherited_models_import)
-    print(obj.main_py)
-    print(obj.xml_data)
+def creating_security(module_name, module_name_cap, path, seq_read, csv_model, csv, xml):
+    seq_file_csv = open(os.path.join(path, 'security/ir.model.access.csv'), "w")
+    seq_file_csv.write(seq_read.replace(csv_model, "".join(csv)))
+    seq_file_csv.close()
+    seq_file_xml = open(os.path.join(path, 'security/access.xml'), "w")
+    seq_file_xml.write(xml.replace('group_name_here', module_name + "_permission").replace(
+        'module_name_here', module_name).replace('module_name_cap', module_name_cap))
+    seq_file_xml.close()
+
+
+def create_menu_files(path, main_menu, sub_menu, menu_read):
+    menu_file = open(os.path.join(path, 'view/menu.xml'), "w")
+    menu_file.write(menu_read.replace(main_menu, "".join(module_create.MAIN_MENU_ID)).replace(sub_menu, "".join(
+        module_create.SUB_MENUS)))
+    menu_file.close()
+
+
+dit = {'test.model.one': {'Boolean': ['bool1', 'bool2'], 'Char': ['char1', 'char2'], 'Integer': ['int'],
+                          'Float': ['float'], 'Text': ['txt'], 'Date': ['date'],
+                          'Selection': {'selection1': ['a', 'b', 'c'], 'selection2': ['1', '2']},
+                          'Many2one': {'many2one': 'co.model1'},
+                          'One2many': {'one2many1': 'co.model1', 'one2many2': 'co.model2'},
+                          'Many2many': {'many2many1': 'co.model1'}},
+       'test.model.two': {'Boolean': ['bool2'], 'Char': ['char2'], 'Integer': ['int2'], 'Float': ['float2'],
+                          'Text': ['text2'], 'Date': ['date2'], 'Selection': {'selection2': ['x', 'y']},
+                          'Many2one': {'many2one': 'co.model2'},
+                          'One2many': {'one2many2': 'co.model5', 'one2many4': 'co.model5'}}}
+
+
+def delete_dir(file_path):
+    shutil.rmtree(file_path)
+    print("\033[1;31m Deleting Directory... \n")
+
+
+def making_structure(details, dependencies, module_name, location):
+    try:
+        return run_main(details, dependencies, module_name, location)
+    except:
+        delete_dir(os.path.join(location, module_name))
+        return False
+
+
+def start_function():
+    module_name, dependencies = basic_module_details()
+    location = get_location()
+    module_details = collecting_details()
+    run_main(module_details, dependencies, module_name, location)
+    print("\033[1;32m MODULE CREATED SUCCESSFULLY \n")
+    print("\033[1;32m MODULE PATH >>  %s\n" % os.path.join(location, module_name))
+
+
+def run_main(details, dependencies, module_name, location):
+    inherit_py = []
+    file_names = []
+    csv_list = []
+    for key, value in details.items():
+        obj = module_create.ModuleCreation(key, value, module_name, location)
+        obj.create_model()
+        obj.creating_basic_fields()
+        obj.creating_many2one_fields()
+        obj.create_selection_fields()
+        obj.creating_one2many_fields()
+        obj.creating_many2many_fields()
+        obj.create_files()
+        obj.get_xml_field_models()
+        obj.create_list_view()
+        obj.create_form_view()
+        obj.merging_xml_views()
+        obj.get_xml_menu_models()
+        obj.creating_menu()
+        obj.get_security_file()
+        obj.creating_security()
+        main_menu = obj.xml_menu_blueprint_data[4]
+        submenu = obj.xml_menu_blueprint_data[6]
+        menu_read = obj.save_xml_menu_blueprint_data
+        inherit_py.extend(obj.inherited_models)
+        module_name_cap = obj.module_name_cap
+        inherited_models_import = obj.inherited_models_import
+        inherited_models_import.extend(inherit_py)
+        model, module_path = creating_py_xml(obj.main_py, obj.xml_data, obj.model_name, obj.module_name, location)
+        file_names.append(model)
+        csv_list.append(obj.csv)
+        seq_read = obj.csv_security_data
+        csv_model = obj.csv_security_blueprint_data[1]
+        xml = obj.xmlsave_security_blueprint_data
+    create_inherit_file(module_path, inherited_models_import)
+    create_menu_files(module_path, main_menu, submenu, menu_read)
+    creating_security(module_name, module_name_cap, module_path, seq_read, csv_model, csv_list, xml)
+    create_init(file_names, module_path)
+    create_manifest(file_names, module_path, module_name_cap, dependencies)
+    return True
+
+
+# if __name__ == '__main__':
+#     dit = {'test.model.one': {'Boolean': ['bool1', 'bool2'], 'Char': ['char1', 'char2'], 'Integer': ['int'], 'Float': ['float'], 'Text': ['txt'], 'Date': ['date'], 'Selection': {'selection1': ['a', 'b', 'c'], 'selection2': ['1', '2']}, 'Many2one': {'many2one': 'co.model1'}, 'One2many': {'one2many1': 'co.model1', 'one2many2': 'co.model2'}, 'Many2many': {'many2many1': 'co.model1'}}, 'test.model.two': {'Boolean': ['bool2'], 'Char': ['char2'], 'Integer': ['int2'], 'Float': ['float2'], 'Text': ['text2'], 'Date': ['date2'], 'Selection': {'selection2': ['x', 'y']}, 'Many2one': {'many2one': 'co.model2'}, 'One2many': {'one2many2': 'co.model5', 'one2many4': 'co.model5'}}}
+#
+#     run_main(dit, 'dependencies', 'module_name', '/home/abhi/')
+def update_value(con, data, fields, typ):
+    if isinstance(con, dict):
+        if typ == SEL:
+            [con[get_name(data[fields])]] = [[get_name(x) for x in data[n].split(',')] for n in data if
+                                             fields.replace('selection_name', 'option_name') == n]
+        if typ == M2O:
+            con[get_name(data[fields])] = get_name(data[fields.replace('m2o_name', 'm2o_comodel_name')])
+        if typ == M2M:
+            con[get_name(data[fields])] = get_name(data[fields.replace('m2m_name', 'm2m_comodel_name')])
+        if typ == O2M:
+            con[get_name(data[fields])] = get_name(data[fields.replace('o2m_name', 'o2m_comodel_name')])
+    else:
+        con.append(data[fields].strip())
+
+
+def get_name(model):
+    return model.strip().lower()
+
+
+def arrange_data(MODEL_DETIALS, module):
+    FINALRESULT = {}
+    for data in MODEL_DETIALS:
+        model = FINALRESULT[get_name(data['model_name'])] = {}
+        for k, v in DATATYPE.items():
+            for fields in data:
+                if fields.find(v) != -1 or fields == v:
+                    if not model.get(k) and k not in [SEL, M2M, M2O, O2M]:
+                        model[k] = []
+                    elif not model.get(k) and k in [SEL, M2M, M2O, O2M]:
+                        model[k] = {}
+                    update_value(model[k], data, fields, k)
+    location = module['location']
+    if not os.path.exists(location):
+        location = os.path.join("/home", os.listdir('/home')[0])
+    try:
+        res = making_structure(FINALRESULT, module['depends'], module['module_name'], location)
+    except:
+        return False
+    return res

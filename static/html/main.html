@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Module Customization</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.3/jquery.min.js"></script>
+    <script type="text/javascript" src="/home/abhi/PythonProjects/CreateMoudle/static/js/main.js"> </script>
+    <style>
+         label{
+         color:lightseagreen;
+         }
+         option, select{
+         color:white;
+         }
+         a.navtop
+         {
+         color:darkgrey;
+         padding: 0px
+         }
+         a.navtop:hover
+         {
+         color:white;
+         }
+         a.nav2
+         {
+         color:grey;
+         }
+         a.nav2:hover
+         {
+         color:black;
+         }
+         a.nav3
+         {
+         color:lightgrey;
+         padding: 0px;
+         text-decoration: none;
+         }
+         a.nav3:hover
+         {
+         color:white;
+         }
+         .carousel-inner img
+         {
+         width: 100%;
+         height: 100%;
+         }
+         .imgcntner
+         {
+         position: relative;
+         text-align: center;
+         color: white;
+         }
+         .txtcntner
+         {
+         position: absolute;
+         top: 50%;
+         left: 50%;
+         transform: translate(-50%, -50%);
+         }
+         html {
+         height: 100%;
+         }
+         body {
+         margin:0;
+         padding:0;
+         background-image: linear-gradient(-90deg , #18181b, #262626);
+         font-family: sans-serif;
+         animation-duration: 3s;
+         animation-name: slidein;
+         animation-iteration-count: 1;
+         }
+         select{
+         background: rgba(0,0,0,.5);
+         color:white;
+         }
+         .login-box {
+         position: absolute;
+         top: 50%;
+         left: 50%;
+         width: 1000px;
+         padding: 100px;
+         transform: translate(-50%, -50%);
+         background: rgba(0,0,0,.5);
+         box-sizing: border-box;
+         box-shadow: 0 15px 25px rgba(0,0,0,.6);
+         border-radius: 10px;
+         }
+         .login-box h2 {
+         margin: 0 0 30px;
+         padding: 0;
+         color: #fff;
+         text-align: center;
+         }
+         .login-box .user-box {
+         position: relative;
+         }
+         .login-box .user-box input {
+         width: 100%;
+         padding: 10px 0;
+         font-size: 16px;
+         color: #fff;
+         margin-bottom: 30px;
+         border: none;
+         border-bottom: 1px solid #fff;
+         outline: none;
+         background: transparent;
+         }
+         .login-box .user-box label {
+         position: absolute;
+         top:0;
+         left: 0;
+         padding: 10px 0;
+         font-size: 16px;
+         color: #fff;
+         pointer-events: none;
+         transition: .5s;
+         }
+         .login-box .user-box input:focus ~ label,
+         .login-box .user-box input:valid ~ label {
+         top: -20px;
+         left: 0;
+         color: #03e9f4;
+         font-size: 12px;
+         }
+         .login-box form a {
+         position: relative;
+         display: inline-block;
+         padding: 10px 20px;
+         color: #03e9f4;
+         font-size: 16px;
+         text-decoration: none;
+         text-transform: uppercase;
+         overflow: hidden;
+         transition: .5s;
+         margin-top: 40px;
+         letter-spacing: 4px
+         }
+         .login-box a:hover {
+         background: #03e9f4;
+         color: #fff;
+         border-radius: 5px;
+         box-shadow: 0 0 5px #03e9f4,
+         0 0 25px #03e9f4,
+         0 0 50px #03e9f4,
+         0 0 100px #03e9f4;
+         }
+         .login-box button:hover {
+         color: #fff;
+         }
+         .login-box a span {
+         position: absolute;
+         display: block;
+         }
+         .login-box a span:nth-child(1) {
+         top: 0;
+         left: -100%;
+         width: 100%;
+         height: 2px;
+         background: linear-gradient(90deg, transparent, #03e9f4);
+         animation: btn-anim1 1s linear infinite;
+         }
+         @keyframes btn-anim1 {
+         0% {
+         left: -100%;
+         }
+         50%,100% {
+         left: 100%;
+         }
+         }
+         .login-box a span:nth-child(2) {
+         top: -100%;
+         right: 0;
+         width: 2px;
+         height: 100%;
+         background: linear-gradient(180deg, transparent, #03e9f4);
+         animation: btn-anim2 1s linear infinite;
+         animation-delay: .25s
+         }
+         @keyframes btn-anim2 {
+         0% {
+         top: -100%;
+         }
+         50%,100% {
+         top: 100%;
+         }
+         }
+         .login-box a span:nth-child(3) {
+         bottom: 0;
+         right: -100%;
+         width: 100%;
+         height: 2px;
+         background: linear-gradient(270deg, transparent, #03e9f4);
+         animation: btn-anim3 1s linear infinite;
+         animation-delay: .5s
+         }
+         @keyframes btn-anim3 {
+         0% {
+         right: -100%;
+         }
+         50%,100% {
+         right: 100%;
+         }
+         }
+         .login-box a span:nth-child(4) {
+         bottom: -100%;
+         left: 0;
+         width: 2px;
+         height: 100%;
+         background: linear-gradient(360deg, transparent, #03e9f4);
+         animation: btn-anim4 1s linear infinite;
+         animation-delay: .75s
+         }
+         @keyframes btn-anim4 {
+         0% {
+         bottom: -100%;
+         }
+         50%,100% {
+         bottom: 100%;
+         }
+         }
+         .create_class{
+         display: none;
+         }
+         section {
+         text-align: center;
+         color: #fff;
+         /*background-image: linear-gradient(-90deg , #0c0c0d, #1a1a1a);*/
+         font-family: 'Roboto';
+         }
+         .app {
+         max-width: 421px;
+         margin: 0 auto;
+         }
+         .app i {
+         font-size: 80px;
+         animation-duration: 3s;
+         animation-name: slidein;
+         animation-iteration-count: 1;
+         }
+         article {
+         position: relative;
+         width: 200px;
+         height: 160px;
+         margin: 5px;
+         float: left;
+         border: 2px solid rgb(32, 178, 170);
+         box-sizing: border-box;
+         }
+         article div {
+         width: 100%;
+         height: 100%;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         line-height: 25px;
+         transition: .5s ease;
+         }
+         article input {
+         position: absolute;
+         top: 0;
+         left: 0;
+         width: 200px;
+         height: 160px;
+         opacity: 0;
+         cursor: pointer;
+         }
+         input[type=checkbox]:checked ~ div {
+         background-color: rgb(32, 178, 170);
+         }
+         input[type=checkbox]:hover ~ div {
+         background-color: rgb(32, 178, 170, .2);
+         }
+         input[type=checkbox]:active ~ div {
+         background-color: rgb(32, 178, 170, .2);
+         }
+         .blue-color {
+         color: #50bcf2;
+         }
+         .gray-color {
+         color: #555;
+         }
+         .social i:before {
+         width: 14px;
+         height: 14px;
+         position: fixed;
+         color: #fff;
+         background: #0077B5;
+         padding: 10px;
+         border-radius: 50%;
+         top:5px;
+         right:5px;
+         }
+         @keyframes slidein {
+         from {
+         margin-top: 100%;
+         width: 300%;
+         }
+         to {
+         margin: 0%;
+         width: 100%;
+         }
+         }
+         </style>
+</head>
+<body>
+<div id="create_id" class="create_class">
+    <!-- navbar1 -->
+    <div class="login-box jumbotron">
+        <h2>
+            <div class="navbar-brand ml-5">
+                <h2><strong><span style="color:lightseagreen">Create </span>M<i class="fas fa-infinity" style="color:lightseagreen">l</i>ule</strong></h2>
+            </div>
+        </h2>
+        <form action="/" enctype="multipart/form-data" method="POST" >
+            <div style="display: none;">
+                <input name="details" value="${odoo_details}">
+                <input name="link" value="${link}">
+            </div>
+            <br/>
+            <table>
+                <label>Module Name</label>
+                <div class="user-box" colspan="3">
+                    <input type="text" style="width:40%" name="module_name" placeholder="module_name" required="1"/>
+                </div>
+                <label>Depends</label>
+                <div class="user-box">
+                    <input type="text" name="depends" placeholder="Dependency" required="1"/>
+                </div>
+                <tr>
+                    <td colspan="3">
+                    </td>
+                    <td colspan="3">
+                        <label>No .of Models</label>
+                        <div class="user-box">
+                            <input type="number" name="no_model" required="1"/>
+                        </div>
+                    </td>
+
+                </tr>
+                <tr>
+                        <label>Location To be Created</label>
+                        <div class="user-box">
+                            <input type="text" name="location" placeholder="Location" required="1"/>
+                        </div>
+                    </tr>
+            </table>
+            <a type="submit">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <button type="submit" class="btn btn-transparent" style="color:white;outline: none;border:0px">Submit</button>
+            </a>
+        </form>
+        </select>
+    </div>
+</div>
+<section class="app" id="app_id">
+    <i class="fa fa-rocket"></i>
+    <h1>It's time to <span class="blue-color">upgrade</span></h1>
+    <h3 class="gray-color">Choose the feature that best fit your needs and you'll be good to go!</h3>
+    <article class="feature1">
+        <input type="checkbox" id="feature1" onclick="create_fn(this)" />
+        <div>
+               <span>
+               <strong>CREATE</strong> <br/>
+               create Module from stratch      </span>
+        </div>
+    </article>
+    <article class="feature2">
+        <input type="checkbox" id="feature2"/>
+        <div>
+               <span>
+               <strong>EDIT</strong> <br/>
+               Edit An existing module
+               </span>
+        </div>
+    </article>
+    <article class="feature3">
+        <input type="checkbox" id="feature3"/>
+        <div>
+               <span>
+               <strong>DELETE</strong> <br/>
+               Module Move to Trash
+               </span>
+        </div>
+    </article>
+    <article class="feature4">
+        <input type="checkbox" id="feature4"/>
+        <div>
+               <span>
+               <strong>RUN</strong><br/>
+               Run odoo
+               </span>
+        </div>
+    </article>
+    <div  class="gray-color">
+        <br/>
+        <br/>
+        <br/>
+        Terms & Conditions
+    </div>
+</section>
+<script>
+          function create_fn(cbox) {
+       if (cbox.checked) {
+         document.getElementById("create_id").style.display = "block";
+         document.getElementById("app_id").style.display = "none";
+       }
+      }
+</script>
+</body>
+</html>

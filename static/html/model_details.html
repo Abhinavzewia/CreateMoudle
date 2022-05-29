@@ -1,0 +1,936 @@
+<!doctype html>
+<html>
+   <head>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+      <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+      <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"/>
+      <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+      <style>
+         label{
+         color:lightseagreen;
+         }
+         option, select{
+         color:white;
+         }
+         a.navtop
+         {
+         color:darkgrey;
+         padding: 0px
+         }
+         a.navtop:hover
+         {
+         color:white;
+         }
+         a.nav2
+         {
+         color:grey;
+         }
+         a.nav2:hover
+         {
+         color:black;
+         }
+         a.nav3
+         {
+         color:lightgrey;
+         padding: 0px;
+         text-decoration: none;
+         }
+         a.nav3:hover
+         {
+         color:white;
+         }
+         .carousel-inner img
+         {
+         width: 100%;
+         height: 100%;
+         }
+         .imgcntner
+         {
+         position: relative;
+         text-align: center;
+         color: white;
+         }
+         .txtcntner
+         {
+         position: absolute;
+         top: 50%;
+         left: 50%;
+         transform: translate(-50%, -50%);
+         }
+         html {
+         height: 100%;
+         }
+         body {
+         margin:0;
+         padding:0;
+         background-image: linear-gradient(-90deg , #18181b, #262626);
+         font-family: sans-serif;
+         }
+         select{
+         background: rgba(0,0,0,.5);
+         color:white;
+         }
+         .login-box {
+         position: absolute;
+         top: 09%;
+         left: 09%;
+         width: 1300px;
+         padding: 100px;
+         background: rgba(0,0,0,.5);
+         box-sizing: border-box;
+         box-shadow: 0 15px 25px rgba(0,0,0,.6);
+         border-radius: 10px;
+         }
+         .login-box h2 {
+         margin: 0 0 30px;
+         padding: 0;
+         color: #fff;
+         text-align: center;
+         }
+         .login-box .user-box {
+         position: relative;
+         }
+         .login-box .user-box input {
+         width: 100%;
+         padding: 10px 0;
+         font-size: 16px;
+         color: #fff;
+         margin-bottom: 30px;
+         border: none;
+         border-bottom: 1px solid lightseagreen;
+         outline: none;
+         background: transparent;
+         }
+         .login-box .user-box label {
+         position: absolute;
+         top:0;
+         left: 0;
+         padding: 10px 0;
+         font-size: 16px;
+         color: #fff;
+         pointer-events: none;
+         transition: .5s;
+         }
+         .login-box .user-box input:focus ~ label,
+         .login-box .user-box input:valid ~ label {
+         top: -20px;
+         left: 0;
+         color: #03e9f4;
+         font-size: 12px;
+         }
+         .login-box form a {
+         position: relative;
+         display: inline-block;
+         padding: 10px 20px;
+         color: #03e9f4;
+         font-size: 16px;
+         text-decoration: none;
+         text-transform: uppercase;
+         overflow: hidden;
+         transition: .5s;
+         margin-top: 40px;
+         letter-spacing: 4px
+         }
+         .login-box a:hover {
+         background: #03e9f4;
+         color: #fff;
+         border-radius: 5px;
+         box-shadow: 0 0 5px #03e9f4,
+         0 0 25px #03e9f4,
+         0 0 50px #03e9f4,
+         0 0 100px #03e9f4;
+         }
+         .login-box button:hover {
+         color: #fff;
+         }
+         .login-box a span {
+         position: absolute;
+         display: block;
+         }
+         .login-box a span:nth-child(1) {
+         top: 0;
+         left: -100%;
+         width: 100%;
+         height: 2px;
+         background: linear-gradient(90deg, transparent, #03e9f4);
+         animation: btn-anim1 1s linear infinite;
+         }
+         @keyframes btn-anim1 {
+         0% {
+         left: -100%;
+         }
+         50%,100% {
+         left: 100%;
+         }
+         }
+         .login-box a span:nth-child(2) {
+         top: -100%;
+         right: 0;
+         width: 2px;
+         height: 100%;
+         background: linear-gradient(180deg, transparent, #03e9f4);
+         animation: btn-anim2 1s linear infinite;
+         animation-delay: .25s
+         }
+         @keyframes btn-anim2 {
+         0% {
+         top: -100%;
+         }
+         50%,100% {
+         top: 100%;
+         }
+         }
+         .login-box a span:nth-child(3) {
+         bottom: 0;
+         right: -100%;
+         width: 100%;
+         height: 2px;
+         background: linear-gradient(270deg, transparent, #03e9f4);
+         animation: btn-anim3 1s linear infinite;
+         animation-delay: .5s
+         }
+         @keyframes btn-anim3 {
+         0% {
+         right: -100%;
+         }
+         50%,100% {
+         right: 100%;
+         }
+         }
+         .login-box a span:nth-child(4) {
+         bottom: -100%;
+         left: 0;
+         width: 2px;
+         height: 100%;
+         background: linear-gradient(360deg, transparent, #03e9f4);
+         animation: btn-anim4 1s linear infinite;
+         animation-delay: .75s
+         }
+         @keyframes btn-anim4 {
+         0% {
+         bottom: -100%;
+         }
+         50%,100% {
+         bottom: 100%;
+         }
+         }
+         article {
+         position: relative;
+         width: 100px;
+         height: 30px;
+         margin: 5px;
+         float: left;
+         border: 2px solid lightseagreen;
+         box-sizing: border-box;
+         }
+         article div {
+         width: 100%;
+         height: 100%;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         line-height: 25px;
+         transition: .5s ease;
+         }
+         article input {
+         position: absolute;
+         top: 0;
+         left: 0;
+         width: 100px;
+         height: 30px;
+         opacity: 0;
+         cursor: pointer;
+         }
+         input[type=checkbox]:checked ~ div {
+         background-color: lightseagreen;
+         }
+         .boolean_fields{
+         display:none
+         }
+         .text_fields{
+         width: 100%;
+         padding: 10px 0;
+         font-size: 16px;
+         color: #fff;
+         margin-bottom: 30px;
+         border: none;
+         border-bottom: 1px solid lightseagreen;
+         outline: none;
+         background: transparent;
+         }
+         .text_fields:focus{
+         background: transparent;
+         color: #fff;
+         }
+         .char_fields, .boolean_fields, .txt_fields, .int_fields, .date_fields, .float_fields, .m2o_fields,
+         .o2m_fields, .m2m_fields, .selection_fields{
+         display:none
+         }
+      </style>
+   </head>
+   <body class="bg-dark">
+      <div>
+         <!-- navbar1 -->
+         <div class="login-box jumbotron">
+            <h2>
+               <div class="navbar-brand ml-5">
+                  <h3><strong><span style="color:lightseagreen">MODEL </span>DETAI<span style="color:lightseagreen">LS</span></strong></h3>
+               </div>
+            </h2>
+            <form action="/" enctype="multipart/form-data" method="POST" >
+               <input name="is_model_details" type="text" value="1" style="display:none"/>
+               <div style="display: none;">
+                  <input name="details" value="${odoo_details}">
+                  <input name="link" value="${link}">
+               </div>
+               <br/>
+               <table>
+                  <label><b>Model Name</b></label>
+                  <div class="user-box" colspan="3">
+                     <input type="text" style="width:40%" name="model_name" placeholder="Model (model.model)" required="1"/>
+                  </div>
+                  <tr>
+                     <td>
+                        <article class="feature2">
+                           <input type="checkbox" id="Boolean" name="is_Boolean" onclick="bool_fn(this);"/>
+                           <div style="color:white">
+                              Boolean
+                           </div>
+                        </article>
+                     </td>
+                     <td colspan="3">
+                        <article class="feature2">
+                           <input type="checkbox" id="Char" name="is_Char" onclick="char_fn(this);"/>
+                           <div style="color:white">
+                              Char
+                           </div>
+                        </article>
+                     </td>
+                     <td>
+                        <article class="feature2">
+                           <input type="checkbox" id="Integer" name="is_Integer" onclick="int_fn(this)"/>
+                           <div style="color:white">
+                              Integer
+                           </div>
+                        </article>
+                     </td>
+                     <td colspan="3">
+                        <article class="feature2">
+                           <input type="checkbox" id="Float" name="is_Float" onclick="float_fn(this)"/>
+                           <div style="color:white">
+                              Float
+                           </div>
+                        </article>
+                     </td>
+                     <td>
+                        <article class="feature2">
+                           <input type="checkbox" id="Date" name="is_Date" onclick="date_fn(this)"/>
+                           <div style="color:white">
+                              Date
+                           </div>
+                        </article>
+                     </td>
+                     <td colspan="3">
+                        <article class="feature2">
+                           <input type="checkbox" id="Text" name="is_Text" onclick="text_fn(this)"/>
+                           <div style="color:white">
+                              Text
+                           </div>
+                        </article>
+                     </td>
+                     <td>
+                        <article class="feature2">
+                           <input type="checkbox" id="Selection" name="is_Selection" onclick="selection_fn(this)"/>
+                           <div style="color:white">
+                              Selection
+                           </div>
+                        </article>
+                     </td>
+                     <td colspan="3">
+                        <article class="feature2">
+                           <input type="checkbox" id="Many2one" name="is_Many2one" onclick="m2o_fn(this)"/>
+                           <div style="color:white">
+                              Many2one
+                           </div>
+                        </article>
+                     </td>
+                     <td>
+                        <article class="feature2">
+                           <input type="checkbox" id="One2many" name="is_One2many" onclick="o2m_fn(this)"/>
+                           <div style="color:white">
+                              One2many
+                           </div>
+                        </article>
+                     </td>
+                     <td colspan="3">
+                        <article class="feature2">
+                           <input type="checkbox" id="Many2many" name="is_Many2many" onclick="m2m_fn(this)"/>
+                           <div style="color:white">
+                              Many2many
+                           </div>
+                        </article>
+                     </td>
+                  </tr>
+               </table>
+               <br/>
+               <hr style="height:2px;border-width:0;color:#fff;background-color:#fff"/>
+               <div class="boolean_fields" id="bool_id">
+                  <h5 style="color:white">
+                     <strong>
+                        <center> Boolean Field Name</center>
+                     </strong>
+                  </h5>
+                  <div class="col-lg-12">
+                     <div id="row_bool">
+                        <div class="input-group m-3">
+                           <div class="input-group-prepend">
+                              <button class="btn btn-dark"
+                                 id="DeleteRow_bool" type="button">
+                              <i class="bi bi-trash"></i>
+                              Delete
+                              </button>
+                           </div>
+                           <input type="text" placeholder="  Boolean (field_name)"
+                              class="form-control m-input text_fields" name="bool_name">
+                        </div>
+                     </div>
+                     <div id="newinput_bool"></div>
+                     <button id="rowAdder_bool" type="button"
+                        class="btn btn-info">
+                     <span class="bi bi-plus-square-dotted">
+                     </span> ADD
+                     </button>
+                  </div>
+                  <hr style="height:2px;border-width:0;color:#fff;background-color:#fff"/>
+               </div>
+               <div class="char_fields" id="char_id">
+                  <h5 style="color:white">
+                     <strong>
+                        <center> Char Field Name</center>
+                     </strong>
+                  </h5>
+                  <div class="col-lg-12">
+                     <div id="row_char">
+                        <div class="input-group m-3">
+                           <div class="input-group-prepend">
+                              <button class="btn btn-dark"
+                                 id="DeleteRow_char" type="button">
+                              <i class="bi bi-trash"></i>
+                              Delete
+                              </button>
+                           </div>
+                           <input type="text" placeholder="  Char (field_name)"
+                              class="form-control m-input text_fields" name="char_name">
+                        </div>
+                     </div>
+                     <div id="newinput_char"></div>
+                     <button id="rowAdder_char" type="button"
+                        class="btn btn-info">
+                     <span class="bi bi-plus-square-dotted">
+                     </span> ADD
+                     </button>
+                  </div>
+                  <hr style="height:2px;border-width:0;color:#fff;background-color:#fff"/>
+               </div>
+               <div class="int_fields" id="int_id">
+                  <h5 style="color:white">
+                     <strong>
+                        <center> Int Field Name</center>
+                     </strong>
+                  </h5>
+                  <div class="col-lg-12">
+                     <div id="row_int">
+                        <div class="input-group m-3">
+                           <div class="input-group-prepend">
+                              <button class="btn btn-dark"
+                                 id="DeleteRow_int" type="button">
+                              <i class="bi bi-trash"></i>
+                              Delete
+                              </button>
+                           </div>
+                           <input type="text" placeholder="  Int (field_name)"
+                              class="form-control m-input text_fields" name="int_name">
+                        </div>
+                     </div>
+                     <div id="newinput_int"></div>
+                     <button id="rowAdder_int" type="button"
+                        class="btn btn-info">
+                     <span class="bi bi-plus-square-dotted">
+                     </span> ADD
+                     </button>
+                  </div>
+                  <hr style="height:2px;border-width:0;color:#fff;background-color:#fff"/>
+               </div>
+               <div class="float_fields" id="float_id">
+                  <h5 style="color:white">
+                     <strong>
+                        <center> Floar Field Name</center>
+                     </strong>
+                  </h5>
+                  <div class="col-lg-12">
+                     <div id="row_float">
+                        <div class="input-group m-3">
+                           <div class="input-group-prepend">
+                              <button class="btn btn-dark"
+                                 id="DeleteRow_float" type="button">
+                              <i class="bi bi-trash"></i>
+                              Delete
+                              </button>
+                           </div>
+                           <input type="text" placeholder="  Float (field_name)"
+                              class="form-control m-input text_fields" name="float_name">
+                        </div>
+                     </div>
+                     <div id="newinput_float"></div>
+                     <button id="rowAdder_float" type="button"
+                        class="btn btn-info">
+                     <span class="bi bi-plus-square-dotted">
+                     </span> ADD
+                     </button>
+                  </div>
+                  <hr style="height:2px;border-width:0;color:#fff;background-color:#fff"/>
+               </div>
+               <div class="date_fields" id="date_id">
+                  <h5 style="color:white">
+                     <strong>
+                        <center> Date Field Name</center>
+                     </strong>
+                  </h5>
+                  <div class="col-lg-12">
+                     <div id="row_date">
+                        <div class="input-group m-3">
+                           <div class="input-group-prepend">
+                              <button class="btn btn-dark"
+                                 id="DeleteRow_date" type="button">
+                              <i class="bi bi-trash"></i>
+                              Delete
+                              </button>
+                           </div>
+                           <input type="text" placeholder="  Date (field_name)"
+                              class="form-control m-input text_fields" name="date_name">
+                        </div>
+                     </div>
+                     <div id="newinput_date"></div>
+                     <button id="rowAdder_date" type="button"
+                        class="btn btn-info">
+                     <span class="bi bi-plus-square-dotted">
+                     </span> ADD
+                     </button>
+                  </div>
+                  <hr style="height:2px;border-width:0;color:#fff;background-color:#fff"/>
+               </div>
+               <div class="txt_fields" id="text_id">
+                  <h5 style="color:white">
+                     <strong>
+                        <center> Text Field Name</center>
+                     </strong>
+                  </h5>
+                  <div class="col-lg-12">
+                     <div id="row_text">
+                        <div class="input-group m-3">
+                           <div class="input-group-prepend">
+                              <button class="btn btn-dark"
+                                 id="DeleteRow_text" type="button">
+                              <i class="bi bi-trash"></i>
+                              Delete
+                              </button>
+                           </div>
+                           <input type="text" placeholder="  Text (field_name)"
+                              class="form-control m-input text_fields" name="text_name">
+                        </div>
+                     </div>
+                     <div id="newinput_text"></div>
+                     <button id="rowAdder_text" type="button"
+                        class="btn btn-info">
+                     <span class="bi bi-plus-square-dotted">
+                     </span> ADD
+                     </button>
+                  </div>
+                  <hr style="height:2px;border-width:0;color:#fff;background-color:#fff"/>
+               </div>
+               <div class="selection_fields" id="selection_id">
+                  <h5 style="color:white">
+                     <strong>
+                        <center> Selection Field Name</center>
+                     </strong>
+                  </h5>
+                  <div class="col-lg-12">
+                     <div id="row_selection">
+                        <div class="input-group m-3">
+                           <div class="input-group-prepend">
+                              <button class="btn btn-dark"
+                                 id="DeleteRow_selection" type="button">
+                              <i class="bi bi-trash"></i>
+                              Delete
+                              </button>
+                           </div>
+                           <input type="text" placeholder="  Selection (field_name)"
+                              class="form-control m-input text_fields" name="selection_name">
+                           <input type="text" placeholder="  Option (option1, option2)"
+                              class="form-control m-input text_fields" name="option_name">
+                        </div>
+                     </div>
+                     <div id="newinput_selection"></div>
+                     <button id="rowAdder_selection" type="button"
+                        class="btn btn-info">
+                     <span class="bi bi-plus-square-dotted">
+                     </span> ADD
+                     </button>
+                  </div>
+                  <hr style="height:2px;border-width:0;color:lightseagreen;background-color:lightseagreen"/>
+               </div>
+               <div class="m2o_fields" id="m2o_id">
+                  <h5 style="color:white">
+                     <strong>
+                        <center> Many2One Field Name</center>
+                     </strong>
+                  </h5>
+                  <div class="col-lg-12">
+                     <div id="row_m2o">
+                        <div class="input-group m-3">
+                           <div class="input-group-prepend">
+                              <button class="btn btn-dark"
+                                 id="DeleteRow_m2o" type="button">
+                              <i class="bi bi-trash"></i>
+                              Delete
+                              </button>
+                           </div>
+                           <input type="text" placeholder="  Many2one (field_name)"
+                              class="form-control m-input text_fields" name="m2o_name">
+                           <input type="text" placeholder="  Comodel (model.model)"
+                              class="form-control m-input text_fields" name="m2o_comodel_name">
+                        </div>
+                     </div>
+                     <div id="newinput_m2o"></div>
+                     <button id="rowAdder_m2o" type="button"
+                        class="btn btn-info">
+                     <span class="bi bi-plus-square-dotted">
+                     </span> ADD
+                     </button>
+                  </div>
+                  <hr style="height:2px;border-width:0;color:#fff;background-color:#fff"/>
+               </div>
+               <div class="o2m_fields" id="o2m_id">
+                  <h5 style="color:white">
+                     <strong>
+                        <center> One2many Field Name</center>
+                     </strong>
+                  </h5>
+                  <div class="col-lg-12">
+                     <div id="row_o2m">
+                        <div class="input-group m-3">
+                           <div class="input-group-prepend">
+                              <button class="btn btn-dark"
+                                 id="DeleteRow_o2m" type="button">
+                              <i class="bi bi-trash"></i>
+                              Delete
+                              </button>
+                           </div>
+                           <input type="text" placeholder="  One2many (field_name)"
+                              class="form-control m-input text_fields" name="o2m_name">
+                           <input type="text" placeholder="    Comodel (model.model)"
+                              class="form-control m-input text_fields" name="o2m_comodel_name">
+                        </div>
+                     </div>
+                     <div id="newinput_o2m"></div>
+                     <button id="rowAdder_o2m" type="button"
+                        class="btn btn-info">
+                     <span class="bi bi-plus-square-dotted">
+                     </span> ADD
+                     </button>
+                  </div>
+                  <hr style="height:2px;border-width:0;color:#fff;background-color:#fff"/>
+               </div>
+               <div class="m2m_fields" id="m2m_id">
+                  <h5 style="color:white">
+                     <strong>
+                        <center> Many2many Field Name</center>
+                     </strong>
+                  </h5>
+                  <div class="col-lg-12">
+                     <div id="row_m2m">
+                        <div class="input-group m-3">
+                           <div class="input-group-prepend">
+                              <button class="btn btn-dark"
+                                 id="DeleteRow_m2m" type="button">
+                              <i class="bi bi-trash"></i>
+                              Delete
+                              </button>
+                           </div>
+                           <input type="text" placeholder="  Many2many (field_name)"
+                              class="form-control m-input text_fields" name="m2m_name">
+                           <input type="text" placeholder="    Comodel (model.model)"
+                              class="form-control m-input text_fields" name="m2m_comodel_name">
+                        </div>
+                     </div>
+                     <div id="newinput_m2m"></div>
+                     <button id="rowAdder_m2m" type="button"
+                        class="btn btn-info">
+                     <span class="bi bi-plus-square-dotted">
+                     </span> ADD
+                     </button>
+                  </div>
+                  <hr style="height:2px;border-width:0;color:#fff;background-color:#fff"/>
+               </div>
+               <a type="submit">
+               <span></span>
+               <span></span>
+               <span></span>
+               <span></span>
+               <button type="submit" class="btn btn-transparent" style="color:white;outline: none;border:0px">Submit</button>
+               </a>
+            </form>
+         </div>
+      </div>
+   </body>
+   <script type="text/javascript">
+      function bool_fn(cbox) {
+       if (cbox.checked) {
+         document.getElementById("bool_id").style.display = "block";
+       } else {
+         document.getElementById("bool_id").style.display = "none";
+       }
+      }
+      function char_fn(cbox) {
+       if (cbox.checked) {
+         document.getElementById("char_id").style.display = "block";
+       } else {
+         document.getElementById("char_id").style.display = "none";
+       }
+      }
+      function int_fn(cbox) {
+       if (cbox.checked) {
+         document.getElementById("int_id").style.display = "block";
+       } else {
+         document.getElementById("int_id").style.display = "none";
+       }
+      }
+      function float_fn(cbox) {
+       if (cbox.checked) {
+         document.getElementById("float_id").style.display = "block";
+       } else {
+         document.getElementById("float_id").style.display = "none";
+       }
+      }
+      function text_fn(cbox) {
+       if (cbox.checked) {
+         document.getElementById("text_id").style.display = "block";
+       } else {
+         document.getElementById("text_id").style.display = "none";
+       }
+      }
+      function selection_fn(cbox) {
+       if (cbox.checked) {
+         document.getElementById("selection_id").style.display = "block";
+       } else {
+         document.getElementById("selection_id").style.display = "none";
+       }
+      }
+      function date_fn(cbox) {
+       if (cbox.checked) {
+         document.getElementById("date_id").style.display = "block";
+       } else {
+         document.getElementById("date_id").style.display = "none";
+       }
+      }
+      function m2o_fn(cbox) {
+       if (cbox.checked) {
+         document.getElementById("m2o_id").style.display = "block";
+       } else {
+         document.getElementById("m2o_id").style.display = "none";
+       }
+      }
+      function o2m_fn(cbox) {
+       if (cbox.checked) {
+         document.getElementById("o2m_id").style.display = "block";
+       } else {
+         document.getElementById("o2m_id").style.display = "none";
+       }
+      }
+      function m2m_fn(cbox) {
+       if (cbox.checked) {
+         document.getElementById("m2m_id").style.display = "block";
+       } else {
+         document.getElementById("m2m_id").style.display = "none";
+       }
+      }
+      var bool_cnt = 1
+         $("#rowAdder_bool").click(function () {
+           bool_cnt +=1
+           newRowAdd =
+           '<div id="row_bool"> <div class="input-group m-3" class="user-box">' +
+           '<div class="input-group-prepend">' +
+           '<button class="btn btn-dark" id="DeleteRow_bool" type="button">' +
+           '<i class="bi bi-trash"></i> Delete</button> </div>' +
+           '<input type="text" class="form-control m-input text_fields" placeholder="  Boolean (field_name)" name="bool_name' + bool_cnt.toString() + '"> </div> </div>';
+
+           $('#newinput_bool').append(newRowAdd);
+           console.log(bool_cnt)
+         });
+
+         $("body").on("click", "#DeleteRow_bool", function () {
+           $(this).parents("#row_bool").remove();
+         })
+         var char_cnt = 1
+         $("#rowAdder_char").click(function () {
+           char_cnt +=1
+           newRowAdd =
+           '<div id="row_char"> <div class="input-group m-3" class="user-box">' +
+           '<div class="input-group-prepend">' +
+           '<button class="btn btn-dark" id="DeleteRow_char" type="button">' +
+           '<i class="bi bi-trash"></i> Delete</button> </div>' +
+           '<input type="text" class="form-control m-input text_fields" placeholder="  Char (field_name)" name="char_name' + char_cnt.toString() + '"> </div> </div>';
+
+           $('#newinput_char').append(newRowAdd);
+           console.log(char_cnt)
+         });
+
+         $("body").on("click", "#DeleteRow_char", function () {
+           $(this).parents("#row_char").remove();
+         })
+         var int_cnt = 1
+         $("#rowAdder_int").click(function () {
+           int_cnt +=1
+           newRowAdd =
+           '<div id="row_int"> <div class="input-group m-3" class="user-box">' +
+           '<div class="input-group-prepend">' +
+           '<button class="btn btn-dark" id="DeleteRow_int" type="button">' +
+           '<i class="bi bi-trash"></i> Delete</button> </div>' +
+           '<input type="text" class="form-control m-input text_fields" placeholder="  Int (field_name)" name="int_name' + int_cnt.toString() + '"> </div> </div>';
+
+           $('#newinput_int').append(newRowAdd);
+           console.log(int_cnt)
+         });
+
+         $("body").on("click", "#DeleteRow_int", function () {
+           $(this).parents("#row_int").remove();
+         })
+         var float_cnt = 1
+         $("#rowAdder_float").click(function () {
+           float_cnt +=1
+           newRowAdd =
+           '<div id="row_float"> <div class="input-group m-3" class="user-box">' +
+           '<div class="input-group-prepend">' +
+           '<button class="btn btn-dark" id="DeleteRow_float" type="button">' +
+           '<i class="bi bi-trash"></i> Delete</button> </div>' +
+           '<input type="text" class="form-control m-input text_fields" placeholder="  Float (field_name)" name="float_name' + float_cnt.toString() + '"> </div> </div>';
+
+           $('#newinput_float').append(newRowAdd);
+           console.log(float_cnt)
+         });
+
+         $("body").on("click", "#DeleteRow_float", function () {
+           $(this).parents("#row_float").remove();
+         })
+         var date_cnt = 1
+         $("#rowAdder_date").click(function () {
+           date_cnt +=1
+           newRowAdd =
+           '<div id="row_date"> <div class="input-group m-3" class="user-box">' +
+           '<div class="input-group-prepend">' +
+           '<button class="btn btn-dark" id="DeleteRow_date" type="button">' +
+           '<i class="bi bi-trash"></i> Delete</button> </div>' +
+           '<input type="text" class="form-control m-input text_fields" placeholder="  Date (field_name)" name="date_name' + date_cnt.toString() + '"> </div> </div>';
+
+           $('#newinput_date').append(newRowAdd);
+           console.log(date_cnt)
+         });
+
+         $("body").on("click", "#DeleteRow_date", function () {
+           $(this).parents("#row_date").remove();
+         })
+         var text_cnt = 1
+         $("#rowAdder_text").click(function () {
+           text_cnt +=1
+           newRowAdd =
+           '<div id="row_text"> <div class="input-group m-3" class="user-box">' +
+           '<div class="input-group-prepend">' +
+           '<button class="btn btn-dark" id="DeleteRow_text" type="button">' +
+           '<i class="bi bi-trash"></i> Delete</button> </div>' +
+           '<input type="text" class="form-control m-input text_fields" placeholder="  Text (field_name)" name="text_name' + text_cnt.toString() + '"> </div> </div>';
+
+           $('#newinput_text').append(newRowAdd);
+           console.log(text_cnt)
+         });
+
+         $("body").on("click", "#DeleteRow_text", function () {
+           $(this).parents("#row_text").remove();
+         })
+         var m2o_cnt = 1
+      $("#rowAdder_m2o").click(function () {
+      m2o_cnt +=1
+      newRowAdd =
+      '<div id="row_m2o"> <div class="input-group m-3" class="user-box">' +
+      '<div class="input-group-prepend">' +
+      '<button class="btn btn-dark" id="DeleteRow_m2o" type="button">' +
+      '<i class="bi bi-trash"></i> Delete</button> </div>' +
+      '<input type="text" class="form-control m-input text_fields" placeholder="  Many2one (field_name)" name="m2o_name' + m2o_cnt.toString() + '">'
+      +'<input type="text" placeholder="   Comodel (model.model)" class="form-control m-input text_fields" name="m2o_comodel_name' + m2o_cnt.toString() + '"> </div> </div>';
+
+      $('#newinput_m2o').append(newRowAdd);
+      console.log(m2o_cnt)
+      });
+
+      $("body").on("click", "#DeleteRow_m2o", function () {
+      $(this).parents("#row_m2o").remove();
+      })
+      var o2m_cnt = 1
+      $("#rowAdder_o2m").click(function () {
+      o2m_cnt +=1
+      newRowAdd =
+      '<div id="row_o2m"> <div class="input-group m-3" class="user-box">' +
+      '<div class="input-group-prepend">' +
+      '<button class="btn btn-dark" id="DeleteRow_o2m" type="button">' +
+      '<i class="bi bi-trash"></i> Delete</button> </div>' +
+      '<input type="text" class="form-control m-input text_fields" placeholder="  One2many (field_name)" name="o2m_name' + o2m_cnt.toString() + '">'
+      +'<input type="text" placeholder="   Comodel (model.model)" class="form-control m-input text_fields" name="o2m_comodel_name' + o2m_cnt.toString() + '"> </div> </div>';
+
+      $('#newinput_o2m').append(newRowAdd);
+      console.log(o2m_cnt)
+      });
+
+      $("body").on("click", "#DeleteRow_o2m", function () {
+      $(this).parents("#row_o2m").remove();
+      })
+      var m2m_cnt = 1
+      $("#rowAdder_m2m").click(function () {
+      m2m_cnt +=1
+      newRowAdd =
+      '<div id="row_m2m"> <div class="input-group m-3" class="user-box">' +
+      '<div class="input-group-prepend">' +
+      '<button class="btn btn-dark" id="DeleteRow_m2m" type="button">' +
+      '<i class="bi bi-trash"></i> Delete</button> </div>' +
+      '<input type="text" class="form-control m-input text_fields" placeholder="  Many2many (field_name)" name="m2m_name' + m2m_cnt.toString() + '">'
+      +'<input type="text" placeholder="   Comodel (model.model)" class="form-control m-input text_fields" name="m2m_comodel_name' + m2m_cnt.toString() + '"> </div> </div>';
+
+      $('#newinput_m2m').append(newRowAdd);
+      console.log(m2m_cnt)
+      });
+
+      $("body").on("click", "#DeleteRow_m2m", function () {
+      $(this).parents("#row_m2m").remove();
+      })
+      var selection_cnt = 1
+      $("#rowAdder_selection").click(function () {
+      selection_cnt +=1
+      newRowAdd =
+      '<div id="row_selection"> <div class="input-group m-3" class="user-box">' +
+      '<div class="input-group-prepend">' +
+      '<button class="btn btn-dark" id="DeleteRow_selection" type="button">' +
+      '<i class="bi bi-trash"></i> Delete</button> </div>' +
+      '<input type="text" class="form-control m-input text_fields" placeholder="  Selection (field_name)" name="selection_name' + selection_cnt.toString() + '">'
+      +'<input type="text" placeholder="  Option (option1, option2)" class="form-control m-input text_fields" name="option_name' + selection_cnt.toString() + '"> </div> </div>';
+
+      $('#newinput_selection').append(newRowAdd);
+      console.log(selection_cnt)
+      });
+
+      $("body").on("click", "#DeleteRow_selection", function () {
+      $(this).parents("#row_selection").remove();
+      })
+   </script>
+</html>

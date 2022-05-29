@@ -1,0 +1,42 @@
+# -*- coding: utf-8 -*-
+#/#############################################################################
+#
+#    Akira Software Solutions Pvt. Ltd.
+#    Copyright (C) 2004-TODAY Akira Software(<http://akiraplc.com>).
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+#/#############################################################################
+{
+    'name': 'module_name_here',
+    'version': '1.0',
+    'category': 'module_name_here',
+    "sequence": 3,
+    'summary': 'module_name_here',
+    'complexity': "User Friendly",
+    'description': """
+
+    """,
+    'author': 'Akira Software Solutions Pvt. Ltd.',
+    'website': 'http://www.akiraplc.com',
+    'images': [],
+    'depends': ['base', 'depends_file_name'],
+    'init_xml': [],
+    'data': [
+        'security/access.xml',
+        'security/ir.model.access.csv',
+        file_name,
+        'view/menu.xml'
+        ]
+}

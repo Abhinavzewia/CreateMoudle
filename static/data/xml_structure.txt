@@ -18,26 +18,28 @@
             <field name="model">model_come_here</field>
             <field name="arch" type="xml">
                 <form string="form_string_name">
-                    <group>
-                    <group>
-                        <field name="group_1_fields" />
-                    </group>
+                    <sheet>
                         <group>
-                        <field name="group_2_fields"/>
-                    </group>
-                    </group>
+                        <group>
+                            <field name="group_1_fields" />
+                        </group>
+                            <group>
+                            <field name="group_2_fields"/>
+                        </group>
+                        </group>
 
-                    <group>
-                        <field name="many2many_fields" widget="many2many_tags"/>
-                    </group>
+                        <group>
+                            <field name="many2many_fields" widget="many2many_tags"/>
+                        </group>
 
-                    <notebook>
+                        <notebook>
 
-                        <page string="page_string">
-                            <field name="one2many_fields"/>
-                        </page>
+                            <page string="page_string">
+                                <field name="one2many_fields"/>
+                            </page>
 
-                    </notebook>
+                        </notebook>
+                    </sheet>
                 </form>
             </field>
         </record>
