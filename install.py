@@ -26,7 +26,7 @@ def unzip_module(passw, zip_file):
 
 
 def create_desktop(passw, zip_loc):
-    folder_name = zip_location.split("/")[-1].split(".")[0]
+    folder_name = zip_loc.split("/")[-1].split(".")[0]
     cmd = "[Desktop Entry]\nVersion = 1.0\nName = Manage Odoo\nComment = Abhinav Product\nExec =/bin/bash -c " \
           "'python3 /usr/local/lib/%(s)s/main.py'\nPath =/usr/local/lib/%(s)s/\nTerminal = true\nType = " \
           "Application" \
