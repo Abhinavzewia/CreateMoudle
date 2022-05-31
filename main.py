@@ -20,7 +20,7 @@ def get_module_details():
         t1.start()
 
     window = tkinter.Tk()
-    window.title("ODOO START")
+    window.title("MANAGE ODOO START")
     window.attributes('-fullscreen', True)
     text = tkinter.Label(window, text="ODOO START!", font=('Helvetica bold', 40))
     text.grid(row=0, column=3, padx=25, pady=65)

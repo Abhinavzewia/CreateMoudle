@@ -189,7 +189,7 @@ def create_manifest(file_lis, path, module_name_cap, dependencies):
     manifest_model = manifest_model_file.read()
     manifest = manifest_model.replace('module_name_here', module_name_cap).replace(
         'depends_file_name',
-        "".join([dep.strip() for dep in dependencies.split(",") if dep.strip() != 'base'])).replace(
+        ", ".join(["'%s'" %dep.strip() for dep in dependencies.split(",") if dep.strip() != 'base'])).replace(
         'file_name', ",\n".join(["'view/%s.xml'" % n.strip() for n in file_lis])
     )
     manifest_file = open(os.path.join(path, '__manifest__.py'), "w")
