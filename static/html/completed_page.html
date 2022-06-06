@@ -112,18 +112,26 @@ body {
 </style>
 </head>
 <body>
+<input style="display:none" name="get_link" value="${file_loc}  "/>
 <div class="page-404">
     <div class="outer">
         <div class="middle">
             <div class="inner">
                 <!--BEGIN CONTENT-->
-                <div class="inner-circle"><i class="fa fa-cogs"></i><span>Module Created</span></div>
-                <span class="inner-status">Check the given Location For the Module</span>
-                <span class="inner-detail"></span>
+                <a id="file_loc" onclick="get_location()" style="text-decoration:none"><div class="inner-circle"><i class="fa fa-cogs"></i><span>Module Created</span></div>
+                    <span class="inner-detail"></span></a>
                 <!--END CONTENT-->
             </div>
         </div>
     </div>
 </div>
 </body>
+<script>
+   function get_location() {
+      var link = $("input[name='get_link']").val()
+      var a = document.getElementById('file_loc');
+      a.href = 'file://' + link
+
+   };
+</script>
 </html>

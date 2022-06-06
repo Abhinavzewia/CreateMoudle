@@ -25,21 +25,20 @@ def get_module_details():
     text = tkinter.Label(window, text="ODOO START!", font=('Helvetica bold', 40))
     text.grid(row=0, column=3, padx=25, pady=65)
     run_btn = tkinter.Button(window, text="RUN", command=thread, bd=40, bg="grey", fg="Green", activeforeground="White",
-                             activebackground="Green", font="Andalus", height=2, highlightcolor="purple", justify="right",
-                             padx=100, pady=100, relief="groove",)
+                             activebackground="Green", font="Andalus", height=2, highlightcolor="purple",
+                             justify="right",
+                             padx=100, pady=100, relief="groove", )
     run_btn.grid(row=10, column=1, padx=60, pady=50)
-    destroy = tkinter.Button(window, text="Quit", command=destroy_fn, bd=40, bg="grey", fg="red", activeforeground="White",
+    destroy = tkinter.Button(window, text="Quit", command=destroy_fn, bd=40, bg="grey", fg="red",
+                             activeforeground="White",
                              activebackground="red", font="Andalus", height=2, highlightcolor="purple", justify="left",
-                             padx=100, pady=100, relief="groove",)
+                             padx=100, pady=100, relief="groove", )
     destroy.grid(row=10, column=4, padx=50, pady=50)
     lbl = tkinter.Label(window, text="")
     lbl.grid(pady=20)
     window.mainloop()
     webServer.server_close()
     print("Server stopped.")
-
-hostName = "localhost"
-serverPort = 8080
 
 
 def run():
@@ -58,4 +57,6 @@ def run():
 
 
 if __name__ == "__main__":
+    hostName = "localhost"
+    serverPort = 8080
     get_module_details()

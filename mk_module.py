@@ -189,7 +189,7 @@ def create_manifest(file_lis, path, module_name_cap, dependencies):
     manifest_model = manifest_model_file.read()
     manifest = manifest_model.replace('module_name_here', module_name_cap).replace(
         'depends_file_name',
-        ", ".join(["'%s'" %dep.strip() for dep in dependencies.split(",") if dep.strip() != 'base'])).replace(
+        ", ".join(["'%s'" % dep.strip() for dep in dependencies.split(",") if dep.strip() != 'base'])).replace(
         'file_name', ",\n".join(["'view/%s.xml'" % n.strip() for n in file_lis])
     )
     manifest_file = open(os.path.join(path, '__manifest__.py'), "w")
@@ -209,7 +209,7 @@ def create_inherit_file(path, inherit_list):
 
 def creating_security(module_name, module_name_cap, path, seq_read, csv_model, csv, xml):
     seq_file_csv = open(os.path.join(path, 'security/ir.model.access.csv'), "w")
-    seq_file_csv.write(seq_read.replace(csv_model, "".join(csv)))
+    seq_file_csv.write(seq_read.replace(csv_model, "\n".join(csv)))
     seq_file_csv.close()
     seq_file_xml = open(os.path.join(path, 'security/access.xml'), "w")
     seq_file_xml.write(xml.replace('group_name_here', module_name + "_permission").replace(
@@ -222,18 +222,18 @@ def create_menu_files(path, main_menu, sub_menu, menu_read):
     menu_file.write(menu_read.replace(main_menu, "".join(module_create.MAIN_MENU_ID)).replace(sub_menu, "".join(
         module_create.SUB_MENUS)))
     menu_file.close()
-
-
-dit = {'test.model.one': {'Boolean': ['bool1', 'bool2'], 'Char': ['char1', 'char2'], 'Integer': ['int'],
-                          'Float': ['float'], 'Text': ['txt'], 'Date': ['date'],
-                          'Selection': {'selection1': ['a', 'b', 'c'], 'selection2': ['1', '2']},
-                          'Many2one': {'many2one': 'co.model1'},
-                          'One2many': {'one2many1': 'co.model1', 'one2many2': 'co.model2'},
-                          'Many2many': {'many2many1': 'co.model1'}},
-       'test.model.two': {'Boolean': ['bool2'], 'Char': ['char2'], 'Integer': ['int2'], 'Float': ['float2'],
-                          'Text': ['text2'], 'Date': ['date2'], 'Selection': {'selection2': ['x', 'y']},
-                          'Many2one': {'many2one': 'co.model2'},
-                          'One2many': {'one2many2': 'co.model5', 'one2many4': 'co.model5'}}}
+#
+#
+# dit = {'test.model.one': {'Boolean': ['bool1', 'bool2'], 'Char': ['char1', 'char2'], 'Integer': ['int'],
+#                           'Float': ['float'], 'Text': ['txt'], 'Date': ['date'],
+#                           'Selection': {'selection1': ['a', 'b', 'c'], 'selection2': ['1', '2']},
+#                           'Many2one': {'many2one': 'co.model1'},
+#                           'One2many': {'one2many1': 'co.model1', 'one2many2': 'co.model2'},
+#                           'Many2many': {'teestt': 'co.model1'}},
+#        'test.model.two': {'Boolean': ['bool2'], 'Char': ['char2'], 'Integer': ['int2'], 'Float': ['float2'],
+#                           'Text': ['text2'], 'Date': ['date2'], 'Selection': {'selection2': ['x', 'y']},
+#                           'Many2one': {'many2one': 'co.model2'},
+#                           'One2many': {'one2many2': 'co.model5', 'one2many4': 'co.model5'}}}
 
 
 def delete_dir(file_path):
@@ -297,13 +297,24 @@ def run_main(details, dependencies, module_name, location):
     creating_security(module_name, module_name_cap, module_path, seq_read, csv_model, csv_list, xml)
     create_init(file_names, module_path)
     create_manifest(file_names, module_path, module_name_cap, dependencies)
-    return True
+    return os.path.join(location, module_name)
 
 
-# if __name__ == '__main__':
-#     dit = {'test.model.one': {'Boolean': ['bool1', 'bool2'], 'Char': ['char1', 'char2'], 'Integer': ['int'], 'Float': ['float'], 'Text': ['txt'], 'Date': ['date'], 'Selection': {'selection1': ['a', 'b', 'c'], 'selection2': ['1', '2']}, 'Many2one': {'many2one': 'co.model1'}, 'One2many': {'one2many1': 'co.model1', 'one2many2': 'co.model2'}, 'Many2many': {'many2many1': 'co.model1'}}, 'test.model.two': {'Boolean': ['bool2'], 'Char': ['char2'], 'Integer': ['int2'], 'Float': ['float2'], 'Text': ['text2'], 'Date': ['date2'], 'Selection': {'selection2': ['x', 'y']}, 'Many2one': {'many2one': 'co.model2'}, 'One2many': {'one2many2': 'co.model5', 'one2many4': 'co.model5'}}}
-#
-#     run_main(dit, 'dependencies', 'module_name', '/home/abhi/')
+if __name__ == '__main__':
+    dit = {'test.model.one': {'Boolean': ['bool1', 'bool2'], 'Char': ['char1', 'char2'], 'Integer': ['int'],
+                              'Float': ['float'], 'Text': ['txt'], 'Date': ['date'],
+                              'Selection': {'selection1': ['a', 'b', 'c'], 'selection2': ['1', '2']},
+                              'Many2one': {'many2one': 'co.model1'},
+                              'One2many': {'one2many1': 'co.model1', 'one2many2': 'co.model2'},
+                              'Many2many': {'tesst': 'co.model1'}},
+           'test.model.two': {'Boolean': ['bool2'], 'Char': ['char2'], 'Integer': ['int2'], 'Float': ['float2'],
+                              'Text': ['text2'], 'Date': ['date2'], 'Selection': {'selection2': ['x', 'y']},
+                              'Many2one': {'many2one': 'co.model2'},
+                              'One2many': {'one2many2': 'co.model5', 'one2many4': 'co.model5'}}}
+
+    run_main(dit, 'dependencies', 'module_name', '/home/abhi/')
+
+
 def update_value(con, data, fields, typ):
     if isinstance(con, dict):
         if typ == SEL:

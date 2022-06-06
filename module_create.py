@@ -212,11 +212,11 @@ class ModuleCreation:
         if self.o2m_fields:
             xml_data = xml_data.replace(self.form_o2m_field, "".join(self.xml_form_o2m_fields))
         else:
-            xml_data = xml_data.replace("".join(self.xml_blueprint_data[29:34]), "")
+            xml_data = xml_data.replace("".join(self.xml_blueprint_data[34:41]), "")
         if self.m2m_fields:
             xml_data = xml_data.replace(self.form_m2m_field, "".join(self.xml_form_m2m_fields))
         else:
-            xml_data = xml_data.replace("".join(self.xml_blueprint_data[34:41]), "")
+            xml_data = xml_data.replace("".join(self.xml_blueprint_data[29:34]), "")
         self.xml_data = xml_data
 
     def get_xml_menu_models(self):
