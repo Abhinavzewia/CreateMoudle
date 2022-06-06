@@ -46,9 +46,11 @@ class BaseHTTRequestHandlerInherit(BaseHTTPRequestHandler):
             fields = (cgi.parse_multipart(self.rfile, pdict))
             global MODULE_DETAILS
             if not MODULE_DETAILS:
-                MODULE_DETAILS = {det: fields[det][0].decode('utf-8').strip() for det in fields}
+                MODULE_DETAILS = {det: fields[det][0].decode('utf-8').strip() if isinstance(fields[det][0], bytes) else 
+                                  fields[det][0].decode('utf-8').strip() for det in fields}
             if fields.get('is_model_details'):
-                MODEL_DETIALS.append({field: fields[field][0].decode('utf-8').strip() for field in fields if not field.startswith("is_")
+                MODEL_DETIALS.append({field: fields[field][0].decode('utf-8').strip() if isinstance(fields[field][0], bytes) else
+                                  fields[field][0].strip() for field in fields if not field.startswith("is_")
                                       and fields[field][0]})
             self.get_model_details()
 
