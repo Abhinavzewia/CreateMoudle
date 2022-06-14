@@ -189,9 +189,9 @@ class ModuleCreation:
         if self.form_fields1:
             for i, fld in enumerate(self.form_fields1):
                 if i % 2:
-                    self.xml_form_group1_fields.extend([self.form_group1_field.replace('group_1_fields', fld)])
-                else:
                     self.xml_form_group2_fields.extend([self.form_group2_field.replace('group_2_fields', fld)])
+                else:
+                    self.xml_form_group1_fields.extend([self.form_group1_field.replace('group_1_fields', fld)])
         if self.o2m_fields:
             self.xml_form_o2m_fields.extend(
                 [self.form_o2m_field.replace('one2many_fields', fld) for fld in self.o2m_fields])
